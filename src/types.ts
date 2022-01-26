@@ -1,8 +1,8 @@
 import { Request } from "express";
 
 // Base custom request body
-export interface CustomRequest<T> extends Request {
-	body: T;
+export interface CustomRequest<P, B, Q> extends Request<P, {}, B, Q, {}> {
+	id?: number;
 }
 
 // Errors sent to user
