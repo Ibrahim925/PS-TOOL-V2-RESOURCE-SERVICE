@@ -5,3 +5,5 @@ const router: Router = Router();
 
 // Get user data
 router.get("/", get_user_data);
+
+export default router;
