@@ -2,8 +2,6 @@ import { NextFunction, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import "dotenv";
 import { CustomRequest } from "../types";
-import { Errors } from "../types";
-import { connection } from "../db/connection";
 
 const authenticateRefreshToken = (
 	req: CustomRequest<{}, {}, {}>,
@@ -11,6 +9,7 @@ const authenticateRefreshToken = (
 	next: NextFunction
 ) => {
 	const authHeader: string = req.headers["authorization"];
+	if (!authHeader) return res.sendStatus(401);
 	const token = authHeader.split(" ")[1];
 
 	console.log("AUTH HEADER TOKEN: ", token);
