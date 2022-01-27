@@ -16,8 +16,5 @@ export const get_user_data = async (
 		.where("user.id = :id", { id })
 		.getOne();
 
-	console.log(user);
-	console.log(id);
-
 	res.json(user);
 };

@@ -22,7 +22,6 @@ const authenticateRefreshToken = (
 		process.env.ACCESS_TOKEN_SECRET,
 		async (error, data: { id: number }) => {
 			if (error) return res.sendStatus(401);
-			console.log(data);
 
 			req.id = data.id;
 			next();
