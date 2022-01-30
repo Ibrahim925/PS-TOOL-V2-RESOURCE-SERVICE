@@ -17,3 +17,9 @@ export type Errors = Error[];
 export enum SuccessMessage {
 	Success = "SUCCESS",
 }
+
+// Valid versions
+export enum Versions {
+	V9 = "V9",
+	V10 = "V10",
+}

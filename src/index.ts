@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as cors from "cors";
 import userRouter from "./router/user.router";
+import projectRouter from "./router/project.router";
 import authenticateRefreshToken from "./middlewares/validateAccessToken";
 import "dotenv/config";
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(authenticateRefreshToken);
 
 app.use("/user", userRouter);
+app.use("/project", projectRouter);
 
 const PORT = process.env.PORT || 5001;
 
