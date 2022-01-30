@@ -36,6 +36,7 @@ export const create_project = async (
 		.getRepository(Project)
 		.createQueryBuilder("project")
 		.where("project.projectName = :projectName", { projectName });
+	console.log(foundProject);
 	if (foundProject) {
 		errors.push({
 			message: "Project already exists",
