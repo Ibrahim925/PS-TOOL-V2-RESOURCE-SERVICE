@@ -55,3 +55,12 @@ export const create_project = async (
 
 	return res.json(newProject);
 };
+
+export const get_projects = async (req: CustomRequest<{}, {}, {}>, res) => {
+	const projects = await connection
+		.getRepository(Project)
+		.createQueryBuilder()
+		.getMany();
+
+	return res.json(projects);
+};
