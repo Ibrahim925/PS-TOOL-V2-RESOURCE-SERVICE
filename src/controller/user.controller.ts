@@ -100,3 +100,21 @@ export const create_user = async (
 
 	return res.json(newCustomer);
 };
+
+interface GetProjectUsersParams {
+	projectName: string;
+}
+
+export const get_project_users = async (
+	req: CustomRequest<GetProjectUsersParams, {}, {}>,
+	res: Response
+) => {
+	const { projectName } = req.params;
+
+	const foundUsers = await connection
+		.getRepository(User)
+		.createQueryBuilder("user")
+		.where("user.userProject = :projectName", { projectName });
+
+	return res.json(foundUsers);
+};
