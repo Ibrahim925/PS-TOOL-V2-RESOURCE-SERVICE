@@ -79,7 +79,7 @@ export const create_user = async (
 		return res.json(errors);
 	}
 
-	const userPassword: string = uuid;
+	const userPassword: string = uuid();
 	const salt = await bcrypt.genSalt(10);
 	const encryptedPassword = await bcrypt.hash(userPassword, salt);
 
