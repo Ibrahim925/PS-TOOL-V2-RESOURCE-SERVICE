@@ -114,7 +114,8 @@ export const get_project_users = async (
 	const foundUsers = await connection
 		.getRepository(User)
 		.createQueryBuilder("user")
-		.where("user.userProject = :projectName", { projectName });
+		.where("user.userProject = :projectName", { projectName })
+		.getMany();
 
 	return res.json(foundUsers);
 };
