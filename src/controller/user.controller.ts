@@ -67,7 +67,8 @@ export const create_user = async (
 	const foundUser = await connection
 		.getRepository(User)
 		.createQueryBuilder("user")
-		.where("user.userEmail = :userEmail", { userEmail });
+		.where("user.userEmail = :userEmail", { userEmail })
+		.getOne();
 
 	if (foundUser) {
 		errors.push({
@@ -96,4 +97,6 @@ export const create_user = async (
 		subject: "LogiSense Account Creation",
 		text: `An account was created with this email. Your password is ${userPassword}`,
 	});
+
+	return res.json(newCustomer);
 };
