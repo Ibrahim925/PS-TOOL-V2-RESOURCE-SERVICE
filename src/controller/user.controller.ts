@@ -119,3 +119,20 @@ export const get_project_users = async (
 
 	return res.json(foundUsers);
 };
+
+interface DeleteProjectUserParams {
+	id: number;
+}
+
+export const delete_project_user = async (
+	req: CustomRequest<DeleteProjectUserParams, {}, {}>,
+	res: Response
+) => {
+	try {
+		const { id } = req.params;
+
+		await User.delete({ id });
+
+		return res.sendStatus(200);
+	} catch (error) {}
+};
