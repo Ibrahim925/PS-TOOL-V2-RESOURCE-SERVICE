@@ -3,16 +3,16 @@ import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 
 interface CreateRulesBody {
-	text: string;
+	csvText: string;
 }
 
 export const create_rules = async (
 	req: CustomRequest<{}, CreateRulesBody, {}>,
 	res: Response
 ) => {
-	console.log(req.body.text);
+	const { csvText } = req.body;
 
-	console.log(CSVToJSON(req.body.text));
+	const csvJSON = CSVToJSON(csvText);
 
-	res.sendStatus(200);
+	res.json(csvJSON);
 };

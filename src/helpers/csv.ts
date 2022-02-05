@@ -1,4 +1,4 @@
-const isStringNumeric = (str) => {
+const isStringNumeric = (str: string) => {
 	if (!str) return false;
 
 	if (str === "0") return true;
@@ -8,14 +8,14 @@ const isStringNumeric = (str) => {
 	return true;
 };
 
-const stringToBool = (str) => {
+const stringToBool = (str: string) => {
 	if (str.toUpperCase() !== "TRUE" && str.toUpperCase() !== "FALSE")
 		return "string is not valid";
 
 	return str.toUpperCase() === "TRUE";
 };
 
-export const CSVToJSON = (data, delimiter = ",") => {
+export const CSVToJSON = (data: string, delimiter = ",") => {
 	// Extracts headers from CSV string
 	let titles = data
 		.slice(0, data.indexOf("\n"))
