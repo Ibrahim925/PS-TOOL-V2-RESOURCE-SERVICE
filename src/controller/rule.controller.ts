@@ -25,10 +25,11 @@ export const create_rules = async (
 
 		// Loop through rules and save them
 		for await (const rule of csvJSON) {
-			if (fieldOccuranceTracker[rule.field]) {
-				fieldOccuranceTracker[rule.field] += 1;
+			const key = `${rule.object}${rule.field}`;
+			if (fieldOccuranceTracker[key]) {
+				fieldOccuranceTracker[key] += 1;
 			} else {
-				fieldOccuranceTracker[rule.field] = 0;
+				fieldOccuranceTracker[key] = 0;
 			}
 
 			const newRule = new Rule();
@@ -40,7 +41,7 @@ export const create_rules = async (
 			newRule.ruleObject = rule.object;
 			newRule.ruleRequired = rule.required;
 			newRule.ruleField = rule.field;
-			newRule.ruleFieldOccurance = fieldOccuranceTracker[rule.field];
+			newRule.ruleFieldOccurance = fieldOccuranceTracker[key];
 
 			await connection.manager.save(newRule);
 		}
