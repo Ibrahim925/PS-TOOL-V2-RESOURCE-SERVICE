@@ -1,3 +1,5 @@
+import { Rules } from "../types";
+
 const isStringNumeric = (str: string) => {
 	if (!str) return false;
 
@@ -15,7 +17,10 @@ const stringToBool = (str: string) => {
 	return str.toUpperCase() === "TRUE";
 };
 
-export const CSVToJSON = (data: string, delimiter = ",") => {
+export const CSVToJSON = async (
+	data: string,
+	delimiter = ","
+): Promise<any> => {
 	// Extracts headers from CSV string
 	let titles = data
 		.slice(0, data.indexOf("\n"))

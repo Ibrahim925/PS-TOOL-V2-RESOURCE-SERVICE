@@ -6,6 +6,7 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 } from "typeorm";
+import { Cases, DataTypes } from "../../types";
 
 @Entity()
 export class Rule extends BaseEntity {
@@ -25,13 +26,13 @@ export class Rule extends BaseEntity {
 	ruleFieldOccurance: number;
 
 	@Column()
-	ruleDataType: "STRING" | "INTEGER" | "BOOLEAN" | "CHAR" | "DATETIME" | "TEXT";
+	ruleDataType: DataTypes;
 
 	@Column()
 	ruleRequired: boolean;
 
 	@Column()
-	ruleCase: "UPPER" | "LOWER" | "CAMEL" | "SNAKE" | "ANY";
+	ruleCase: Cases;
 
 	@Column()
 	ruleDependency: string;
