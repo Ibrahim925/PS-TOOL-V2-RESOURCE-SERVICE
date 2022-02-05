@@ -13,7 +13,7 @@ export class Rule extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({ unique: true })
+	@Column()
 	ruleProject: string;
 
 	@Column()
