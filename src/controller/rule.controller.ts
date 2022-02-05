@@ -23,6 +23,8 @@ export const create_rules = async (
 
 		const fieldOccuranceTracker = {};
 
+		console.log("FJDSLFJLDS");
+
 		// Loop through rules and save them
 		for await (const rule of csvJSON) {
 			const key = `${rule.object}${rule.field}`;
