@@ -34,9 +34,9 @@ export const create_rules = async (
 			newRule.ruleField = rule.field;
 
 			await connection.manager.save(newRule);
-
-			return res.json(csvJSON);
 		}
+
+		return res.json(csvJSON);
 	} catch (error) {
 		console.log(error);
 	}
