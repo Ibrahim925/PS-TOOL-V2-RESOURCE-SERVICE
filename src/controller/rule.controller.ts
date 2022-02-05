@@ -1,4 +1,4 @@
-import { CustomRequest, DataTypes, Rules } from "../types";
+import { CustomRequest, DataTypes, Errors, Rules } from "../types";
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
@@ -14,16 +14,43 @@ export const create_rules = async (
 	res: Response
 ) => {
 	const { projectName, csvText } = req.body;
+	const errors: Errors = [];
 
+	const expectedFields = [
+		"configuration",
+		"object",
+		"field",
+		"dataType",
+		"required",
+		"case",
+		"dependency",
+	];
+	const expectedNumberOfFields = expectedFields.length;
 	const csvJSON: Rules = await CSVToJSON(csvText);
+
+	const headers = Object.keys(csvJSON[0]);
+
+	if (headers.length !== expectedNumberOfFields) {
+		errors.push({ message: "Please enter a valid rules spreadsheet!" });
+
+		return res.json(errors);
+	}
+
+	for (let i = 0; i < expectedNumberOfFields; i++) {
+		if (headers[i] !== expectedFields[i]) {
+			errors.push({
+				message: "Please enter a valid rules spreadsheet!",
+			});
+
+			return res.json(errors);
+		}
+	}
 
 	try {
 		// Delete all previous rules
 		await Rule.delete({ ruleProject: projectName });
 
 		const fieldOccuranceTracker = {};
-
-		console.log("FJDSLFJLDS");
 
 		// Loop through rules and save them
 		for await (const rule of csvJSON) {
