@@ -35,9 +35,9 @@ export const create_rules = async (
 				"FJKLDSFJLDSJFKLDJFKLDSJFKLSDJKLFJSD------------------------------"
 			);
 			if (fieldOccuranceTracker[key] === undefined) {
-				fieldOccuranceTracker[key] += 1;
-			} else {
 				fieldOccuranceTracker[key] = 0;
+			} else {
+				fieldOccuranceTracker[key] += 1;
 			}
 
 			const newRule = new Rule();
