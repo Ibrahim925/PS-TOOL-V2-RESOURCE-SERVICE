@@ -6,7 +6,7 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 } from "typeorm";
-import { Cases, DataTypes } from "../../types";
+import { Cases, Config, DataTypes } from "../../types";
 
 @Entity()
 export class Rule extends BaseEntity {
@@ -18,6 +18,9 @@ export class Rule extends BaseEntity {
 
 	@Column()
 	ruleObject: string;
+
+	@Column()
+	ruleConfiguration: Config;
 
 	@Column()
 	ruleField: string;

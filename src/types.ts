@@ -49,7 +49,7 @@ export enum Cases {
 }
 
 export interface Rule {
-	objectType: Config;
+	configuration: Config;
 	object: string;
 	field: string;
 	dataType: DataTypes;
