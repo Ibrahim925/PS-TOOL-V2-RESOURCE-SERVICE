@@ -187,6 +187,8 @@ export const get_object_rules = async (
 ) => {
 	const { objectName, projectName } = req.params;
 
+	console.log(req.params);
+
 	const rules = await connection
 		.getRepository(Rule)
 		.createQueryBuilder("rule")
