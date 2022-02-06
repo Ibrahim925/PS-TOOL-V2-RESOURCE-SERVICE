@@ -1,4 +1,11 @@
-import { CustomRequest, DataTypes, Errors, LogiObject, Rules } from "../types";
+import {
+	CustomRequest,
+	DataTypes,
+	Errors,
+	LogiObject,
+	Rules,
+	Config,
+} from "../types";
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
@@ -102,7 +109,10 @@ export const get_objects = async (
 	// TODO: SEND BACK OBJECTS
 	const objectNames: LogiObject[] = [];
 	rules
-		.map((rule) => ({ ...rule, ruleObject: rule.ruleObject.trim() }))
+		.map((rule) => ({
+			...rule,
+			ruleConfiguration: rule.ruleConfiguration.trim() as Config,
+		}))
 		.forEach((rule) => {
 			if (
 				objectNames.map((object) => object.objectName).includes(rule.ruleObject)
