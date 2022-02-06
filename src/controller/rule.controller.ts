@@ -98,7 +98,6 @@ export const get_objects = async (
 		.createQueryBuilder("rule")
 		.select("ruleObject", "objectName")
 		.addSelect("ruleConfiguration", "objectConfig")
-		.distinct(true)
 		.where("rule.ruleProject = :projectName", { projectName })
 		.getMany();
 
