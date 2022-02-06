@@ -175,3 +175,26 @@ export const get_rules = async (
 		})
 	);
 };
+
+interface GetObjectRulesParams {
+	objectName: string;
+	projectName: string;
+}
+
+export const get_object_rules = async (
+	req: CustomRequest<GetObjectRulesParams, {}, {}>,
+	res: Response
+) => {
+	const { objectName, projectName } = req.params;
+
+	const rules = await connection
+		.getRepository(Rule)
+		.createQueryBuilder("rule")
+		.where(
+			"rule.ruleObject = :objectName AND rule.ruleProject = :projectName",
+			{ objectName, projectName }
+		)
+		.getMany();
+
+	res.json(rules);
+};
