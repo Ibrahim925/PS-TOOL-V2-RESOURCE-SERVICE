@@ -83,7 +83,25 @@ export const create_rules = async (
 			await connection.manager.save(newRule);
 		}
 
-		return res.json(csvJSON);
+		const objectNames: LogiObject[] = [];
+		csvJSON
+			.map((rule) => ({
+				...rule,
+				ruleConfiguration: rule.configuration.trim() as Config,
+			}))
+			.forEach((rule) => {
+				if (
+					objectNames.map((object) => object.objectName).includes(rule.object)
+				)
+					return;
+
+				objectNames.push({
+					objectName: rule.object,
+					objectConfig: rule.ruleConfiguration,
+				});
+			});
+
+		return res.json({ csvJSON, objectNames });
 	} catch (error) {
 		console.log(error);
 	}
@@ -106,7 +124,6 @@ export const get_objects = async (
 		.where("rule.ruleProject = :projectName", { projectName })
 		.getMany();
 
-	// TODO: SEND BACK OBJECTS
 	const objectNames: LogiObject[] = [];
 	rules
 		.map((rule) => ({
