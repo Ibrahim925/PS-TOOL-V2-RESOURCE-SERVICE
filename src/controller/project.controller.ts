@@ -3,6 +3,7 @@ import { Response } from "express";
 import { connection } from "../db/connection";
 import { Project } from "../db/entity/Project";
 import { User } from "../db/entity/User";
+import { Rule } from "../db/entity/Rule";
 
 interface CreateProjectRequestBody {
 	projectName: string;
@@ -80,6 +81,9 @@ export const delete_project = async (
 
 	// Delete all users in project
 	await User.delete({ userProject: projectName });
+
+	// Delete all project rules
+	await Rule.delete({ ruleProject: projectName });
 
 	res.json(projectName);
 };
