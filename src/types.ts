@@ -59,3 +59,8 @@ export interface Rule {
 }
 
 export type Rules = Rule[];
+
+export interface LogiObject {
+	objectName: string;
+	objectConfig: Config;
+}

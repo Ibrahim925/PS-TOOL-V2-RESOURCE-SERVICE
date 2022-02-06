@@ -1,4 +1,4 @@
-import { CustomRequest, DataTypes, Errors, Rules } from "../types";
+import { CustomRequest, DataTypes, Errors, LogiObject, Rules } from "../types";
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
@@ -93,14 +93,25 @@ export const get_objects = async (
 	const { projectName } = req.params;
 
 	// Get all unique objects from rules
-	const objects = await connection
+	const rules = await connection
 		.getRepository(Rule)
 		.createQueryBuilder("rule")
-		.select("rule.ruleObject", "objectName")
-		.addSelect("rule.ruleConfiguration", "objectConfig")
-		.distinct(true)
 		.where("rule.ruleProject = :projectName", { projectName })
 		.getMany();
 
-	res.json(objects);
+	// TODO: SEND BACK OBJECTS
+	const objectNames: LogiObject[] = [];
+	rules.forEach((rule) => {
+		if (
+			objectNames.map((object) => object.objectName).includes(rule.ruleObject)
+		)
+			return;
+
+		objectNames.push({
+			objectName: rule.ruleObject,
+			objectConfig: rule.ruleConfiguration,
+		});
+	});
+
+	res.json(objectNames);
 };
