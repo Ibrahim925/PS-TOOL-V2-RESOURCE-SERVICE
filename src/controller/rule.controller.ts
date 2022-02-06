@@ -187,8 +187,6 @@ export const get_object_rules = async (
 ) => {
 	const { objectName, projectName } = req.params;
 
-	console.log(req.params);
-
 	const rules = await connection
 		.getRepository(Rule)
 		.createQueryBuilder("rule")
@@ -196,5 +194,17 @@ export const get_object_rules = async (
 		.andWhere("rule.ruleProject = :projectName", { projectName })
 		.getMany();
 
-	return res.json(rules);
+	return res.json(
+		rules.map((rule) => {
+			return {
+				configuration: rule.ruleConfiguration,
+				case: rule.ruleCase,
+				dataType: rule.ruleDataType,
+				object: rule.ruleObject,
+				field: rule.ruleField,
+				dependency: rule.ruleDependency,
+				required: rule.ruleRequired,
+			};
+		})
+	);
 };
