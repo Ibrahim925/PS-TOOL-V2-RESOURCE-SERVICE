@@ -12,10 +12,10 @@ const router: Router = Router();
 router.post("/", create_rules);
 
 // Get objects
-router.get("/object/:projectName/:objectName", get_objects);
+router.get("/object/:projectName", get_objects);
 
 // Get object rules
-router.get("/object/:ruleObject", get_object_rules);
+router.get("/object/:projectName/:objectName", get_object_rules);
 
 // Get all rules
 router.get("/:projectName", get_rules);
