@@ -64,3 +64,18 @@ export const get_projects = async (req: CustomRequest<{}, {}, {}>, res) => {
 
 	return res.json(projects);
 };
+
+interface DeleteProjectParams {
+	id: number;
+}
+
+export const delete_project = async (
+	req: CustomRequest<DeleteProjectParams, {}, {}>,
+	res: Response
+) => {
+	const { id } = req.params;
+
+	await Project.delete({ id });
+
+	return res.json(id);
+};
