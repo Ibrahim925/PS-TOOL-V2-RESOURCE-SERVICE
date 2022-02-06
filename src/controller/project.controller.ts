@@ -2,6 +2,7 @@ import { CustomRequest, Errors, Versions } from "../types";
 import { Response } from "express";
 import { connection } from "../db/connection";
 import { Project } from "../db/entity/Project";
+import { User } from "../db/entity/User";
 
 interface CreateProjectRequestBody {
 	projectName: string;
@@ -66,16 +67,19 @@ export const get_projects = async (req: CustomRequest<{}, {}, {}>, res) => {
 };
 
 interface DeleteProjectParams {
-	id: number;
+	projectName: string;
 }
 
 export const delete_project = async (
 	req: CustomRequest<DeleteProjectParams, {}, {}>,
 	res: Response
 ) => {
-	const { id } = req.params;
+	const { projectName } = req.params;
 
-	await Project.delete({ id });
+	await Project.delete({ projectName });
 
-	return res.json(id);
+	// Delete all users in project
+	await User.delete({ userPassword: projectName });
+
+	res.json(projectName);
 };
