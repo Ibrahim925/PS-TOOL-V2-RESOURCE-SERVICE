@@ -96,7 +96,7 @@ export const get_objects = async (
 	const objects = await connection
 		.getRepository(Rule)
 		.createQueryBuilder("rule")
-		.select(["ruleObject", "ruleConfiguration"])
+		.select(["ruleObject AS objectName", "ruleConfiguration AS objectConfig"])
 		.distinct(true)
 		.where("rule.ruleProject = :projectName", { projectName })
 		.getMany();
