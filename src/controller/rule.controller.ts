@@ -144,3 +144,22 @@ export const get_objects = async (
 
 	res.json(objectNames);
 };
+
+interface GetRulesParams {
+	projectName: string;
+}
+
+export const get_rules = async (
+	req: CustomRequest<GetRulesParams, {}, {}>,
+	res: Response
+) => {
+	const { projectName } = req.params;
+
+	const rules = await connection
+		.getRepository(Rule)
+		.createQueryBuilder("rule")
+		.where("rule.ruleProject = :projectName", { projectName })
+		.getMany();
+
+	return res.json(rules);
+};
