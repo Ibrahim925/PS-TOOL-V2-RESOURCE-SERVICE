@@ -81,3 +81,25 @@ export const create_rules = async (
 		console.log(error);
 	}
 };
+
+interface GetObjectsParams {
+	projectName: string;
+}
+
+export const get_objects = async (
+	req: CustomRequest<GetObjectsParams, {}, {}>,
+	res: Response
+) => {
+	const { projectName } = req.params;
+
+	// Get all unique objects from rules
+	const objects = await connection
+		.getRepository(Rule)
+		.createQueryBuilder("rule")
+		.select(["ruleObject", "ruleConfiguration"])
+		.distinct(true)
+		.where("rule.ruleProject = :projectName", { projectName })
+		.getMany();
+
+	res.json(objects);
+};
