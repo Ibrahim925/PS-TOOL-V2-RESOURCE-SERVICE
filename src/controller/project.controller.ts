@@ -79,7 +79,7 @@ export const delete_project = async (
 	await Project.delete({ projectName });
 
 	// Delete all users in project
-	await User.delete({ userPassword: projectName });
+	await User.delete({ userProject: projectName });
 
 	res.json(projectName);
 };
