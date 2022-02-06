@@ -101,17 +101,19 @@ export const get_objects = async (
 
 	// TODO: SEND BACK OBJECTS
 	const objectNames: LogiObject[] = [];
-	rules.forEach((rule) => {
-		if (
-			objectNames.map((object) => object.objectName).includes(rule.ruleObject)
-		)
-			return;
+	rules
+		.map((rule) => ({ ...rule, ruleObject: rule.ruleObject.trim() }))
+		.forEach((rule) => {
+			if (
+				objectNames.map((object) => object.objectName).includes(rule.ruleObject)
+			)
+				return;
 
-		objectNames.push({
-			objectName: rule.ruleObject,
-			objectConfig: rule.ruleConfiguration,
+			objectNames.push({
+				objectName: rule.ruleObject,
+				objectConfig: rule.ruleConfiguration,
+			});
 		});
-	});
 
 	res.json(objectNames);
 };
