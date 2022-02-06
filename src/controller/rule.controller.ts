@@ -190,11 +190,9 @@ export const get_object_rules = async (
 	const rules = await connection
 		.getRepository(Rule)
 		.createQueryBuilder("rule")
-		.where(
-			"rule.ruleObject = :objectName AND rule.ruleProject = :projectName",
-			{ objectName, projectName }
-		)
+		.where("rule.ruleObject = :objectName", { objectName })
+		.andWhere("rule.ruleProject = :projectName", { projectName })
 		.getMany();
 
-	res.json(rules);
+	return res.json(rules);
 };
