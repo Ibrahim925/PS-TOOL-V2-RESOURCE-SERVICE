@@ -4,7 +4,7 @@ import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
 
-const connection = getConnectionManager().get("default");
+const connection = getConnectionManager().get();
 
 interface CreateRulesBody {
 	projectName: string;
