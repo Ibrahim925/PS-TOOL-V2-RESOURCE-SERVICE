@@ -1,11 +1,4 @@
-import {
-	CustomRequest,
-	DataTypes,
-	Errors,
-	LogiObject,
-	Rules,
-	Config,
-} from "../types";
+import { CustomRequest, Errors, LogiObject, Rules, Config } from "../types";
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
