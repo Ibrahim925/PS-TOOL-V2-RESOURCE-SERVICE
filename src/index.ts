@@ -22,6 +22,7 @@ app.use("/rule", ruleRouter);
 (async () => {
 	const connectionManager = new ConnectionManager();
 	const connection = connectionManager.create({
+		name: "default",
 		type: "mysql",
 		host: process.env.dbHost,
 		port: 3306,
