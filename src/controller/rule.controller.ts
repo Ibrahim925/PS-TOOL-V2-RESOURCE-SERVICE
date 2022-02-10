@@ -9,7 +9,7 @@ import {
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
-import { connection } from "../db/connection";
+import connection from "../db/connection";
 
 interface CreateRulesBody {
 	projectName: string;
