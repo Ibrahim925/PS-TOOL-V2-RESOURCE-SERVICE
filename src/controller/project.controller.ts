@@ -5,7 +5,7 @@ import { Project } from "../db/entity/Project";
 import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
 
-const connection = getConnection("DB");
+const connection = getConnection();
 
 interface CreateProjectRequestBody {
 	projectName: string;

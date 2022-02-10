@@ -8,7 +8,7 @@ import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import * as bcrypt from "bcryptjs";
 import * as nodemailer from "nodemailer";
 
-const connection = getConnection("DB");
+const connection = getConnection();
 
 // Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =

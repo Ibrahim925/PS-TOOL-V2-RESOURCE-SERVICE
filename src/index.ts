@@ -27,7 +27,6 @@ app.use("/rule", ruleRouter);
 		username: "test",
 		password: "test",
 		database: "test",
-		name: "DB",
 	});
 })();
 
