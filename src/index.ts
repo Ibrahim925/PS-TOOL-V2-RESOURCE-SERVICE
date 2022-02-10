@@ -19,26 +19,24 @@ app.use("/user", userRouter);
 app.use("/project", projectRouter);
 app.use("/rule", ruleRouter);
 
-(async () => {
-	const connectionManager = new ConnectionManager();
-	const connection = connectionManager.create({
-		name: "default",
-		type: "mysql",
-		host: process.env.dbHost,
-		port: 3306,
-		username: process.env.dbUserName,
-		password: process.env.dbPassword,
-		database: process.env.dbName,
-		synchronize: true,
-		entities: ["src/db/entity/**/*.ts"],
-		cli: {
-			entitiesDir: "src/db/entity",
-			migrationsDir: "src/db/migration",
-			subscribersDir: "src/db/subscriber",
-		},
-	});
-	await connection.connect();
-})();
+const connectionManager = new ConnectionManager();
+const connection = connectionManager.create({
+	name: "default",
+	type: "mysql",
+	host: process.env.dbHost,
+	port: 3306,
+	username: process.env.dbUserName,
+	password: process.env.dbPassword,
+	database: process.env.dbName,
+	synchronize: true,
+	entities: ["src/db/entity/**/*.ts"],
+	cli: {
+		entitiesDir: "src/db/entity",
+		migrationsDir: "src/db/migration",
+		subscribersDir: "src/db/subscriber",
+	},
+});
+connection.connect();
 
 const PORT = process.env.PORT || 5001;
 
