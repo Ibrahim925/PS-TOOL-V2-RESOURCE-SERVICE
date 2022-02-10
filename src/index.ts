@@ -22,11 +22,18 @@ app.use("/rule", ruleRouter);
 (async () => {
 	await createConnection({
 		type: "mysql",
-		host: "localhost",
+		host: process.env.dbHost,
 		port: 3306,
-		username: "test",
-		password: "test",
-		database: "test",
+		username: process.env.dbUserName,
+		password: process.env.dbPassword,
+		database: process.env.dbName,
+		synchronize: true,
+		entities: ["src/db/entity/**/*.ts"],
+		cli: {
+			entitiesDir: "src/db/entity",
+			migrationsDir: "src/db/migration",
+			subscribersDir: "src/db/subscriber",
+		},
 	});
 })();
 
