@@ -1,4 +1,4 @@
-import { getConnection } from "typeorm";
+import { getConnectionManager } from "typeorm";
 import { CustomRequest, Errors } from "../types";
 import { Response } from "express";
 import { User } from "../db/entity/User";
@@ -8,7 +8,7 @@ import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import * as bcrypt from "bcryptjs";
 import * as nodemailer from "nodemailer";
 
-const connection = getConnection();
+const connection = getConnectionManager().get("default");
 
 // Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =

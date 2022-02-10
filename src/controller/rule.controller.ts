@@ -1,10 +1,10 @@
-import { getConnection } from "typeorm";
+import { getConnectionManager } from "typeorm";
 import { CustomRequest, Errors, LogiObject, Rules, Config } from "../types";
 import { Response } from "express";
 import { CSVToJSON } from "../helpers/csv";
 import { Rule } from "../db/entity/Rule";
 
-const connection = getConnection();
+const connection = getConnectionManager().get("default");
 
 interface CreateRulesBody {
 	projectName: string;
