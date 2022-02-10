@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as cors from "cors";
-import { createConnection } from "typeorm";
+import { ConnectionManager } from "typeorm";
 import userRouter from "./router/user.router";
 import projectRouter from "./router/project.router";
 import ruleRouter from "./router/rule.router";
@@ -20,7 +20,8 @@ app.use("/project", projectRouter);
 app.use("/rule", ruleRouter);
 
 (async () => {
-	await createConnection({
+	const connectionManager = new ConnectionManager();
+	const connection = connectionManager.create({
 		type: "mysql",
 		host: process.env.dbHost,
 		port: 3306,
@@ -35,6 +36,7 @@ app.use("/rule", ruleRouter);
 			subscribersDir: "src/db/subscriber",
 		},
 	});
+	await connection.connect();
 })();
 
 const PORT = process.env.PORT || 5001;

@@ -1,11 +1,11 @@
-import { getConnectionManager } from "typeorm";
+import { getConnection } from "typeorm";
 import { CustomRequest, Errors, Versions } from "../types";
 import { Response } from "express";
 import { Project } from "../db/entity/Project";
 import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
 
-const connection = getConnectionManager().get();
+const connection = getConnection();
 
 interface CreateProjectRequestBody {
 	projectName: string;
