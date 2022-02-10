@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Connection, createConnection } from "typeorm";
+import { createConnection } from "typeorm";
 import "dotenv/config";
 
 const connection = await createConnection({

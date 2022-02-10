@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"lib": ["es5", "es6"],
 		"target": "es2017",
-		"module": "esnext",
+		"module": "ES2022",
 		"moduleResolution": "node",
 		"outDir": "./build",
 		"emitDecoratorMetadata": true,
