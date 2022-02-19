@@ -3,7 +3,7 @@ import * as cors from "cors";
 import userRouter from "./router/user.router";
 import projectRouter from "./router/project.router";
 import ruleRouter from "./router/rule.router";
-import authenticateRefreshToken from "./middlewares/validateAccessToken";
+import authenticateAccessToken from "./middlewares/authenticateAccessToken";
 import "dotenv/config";
 
 const app = express();
@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(authenticateRefreshToken);
+app.use(authenticateAccessToken);
 
 app.use("/user", userRouter);
 app.use("/project", projectRouter);

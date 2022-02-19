@@ -4,7 +4,7 @@ import "dotenv";
 import { CustomRequest } from "../types";
 
 // Authenticate refresh token before creating access token with it
-const authenticateRefreshToken = (
+const authenticateAccessToken = (
 	req: CustomRequest<{}, {}, {}>,
 	res: Response,
 	next: NextFunction
@@ -29,4 +29,4 @@ const authenticateRefreshToken = (
 	);
 };
 
-export default authenticateRefreshToken;
+export default authenticateAccessToken;
