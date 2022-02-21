@@ -52,8 +52,6 @@ export const create_rules = async (
 
 		const fieldOccuranceTracker = {};
 
-		const parents: Set<string> = new Set();
-
 		// Loop through rules and save them
 		for await (const rule of csvJSON) {
 			const key = `${rule.object}${rule.field}`;
@@ -62,11 +60,6 @@ export const create_rules = async (
 				fieldOccuranceTracker[key] = 0;
 			} else {
 				fieldOccuranceTracker[key] += 1;
-			}
-
-			if (rule.dependency) {
-				const object = rule.dependency.split(".")[0];
-				parents.add(object);
 			}
 
 			const newRule = new Rule();
@@ -79,7 +72,6 @@ export const create_rules = async (
 			newRule.ruleRequired = rule.required;
 			newRule.ruleField = rule.field;
 			newRule.ruleFieldOccurance = fieldOccuranceTracker[key];
-			newRule.ruleObjectIsParent = parents.has(rule.object);
 			await connection.manager.save(newRule);
 		}
 
@@ -171,7 +163,6 @@ export const get_rules = async (
 				field: rule.ruleField,
 				dependency: rule.ruleDependency,
 				required: rule.ruleRequired,
-				objectIsParent: rule.ruleObjectIsParent,
 			};
 		})
 	);
@@ -205,7 +196,6 @@ export const get_object_rules = async (
 				field: rule.ruleField,
 				dependency: rule.ruleDependency,
 				required: rule.ruleRequired,
-				objectIsParent: rule.ruleObjectIsParent,
 			};
 		})
 	);
