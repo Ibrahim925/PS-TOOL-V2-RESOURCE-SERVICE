@@ -171,6 +171,7 @@ export const get_rules = async (
 				field: rule.ruleField,
 				dependency: rule.ruleDependency,
 				required: rule.ruleRequired,
+				objectIsParent: rule.ruleObjectIsParent,
 			};
 		})
 	);
@@ -204,6 +205,7 @@ export const get_object_rules = async (
 				field: rule.ruleField,
 				dependency: rule.ruleDependency,
 				required: rule.ruleRequired,
+				objectIsParent: rule.ruleObjectIsParent,
 			};
 		})
 	);
