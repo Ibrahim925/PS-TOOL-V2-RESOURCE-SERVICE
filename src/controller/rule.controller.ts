@@ -50,16 +50,16 @@ export const create_rules = async (
 		// Delete all previous rules
 		await Rule.delete({ ruleProject: projectName });
 
-		const fieldOccuranceTracker = {};
+		const fieldOccurrenceTracker = {};
 
 		// Loop through rules and save them
 		for await (const rule of csvJSON) {
 			const key = `${rule.object}${rule.field}`;
 
-			if (fieldOccuranceTracker[key] === undefined) {
-				fieldOccuranceTracker[key] = 0;
+			if (fieldOccurrenceTracker[key] === undefined) {
+				fieldOccurrenceTracker[key] = 0;
 			} else {
-				fieldOccuranceTracker[key] += 1;
+				fieldOccurrenceTracker[key] += 1;
 			}
 
 			const newRule = new Rule();
@@ -71,7 +71,7 @@ export const create_rules = async (
 			newRule.ruleObject = rule.object;
 			newRule.ruleRequired = rule.required;
 			newRule.ruleField = rule.field;
-			newRule.ruleFieldOccurance = fieldOccuranceTracker[key];
+			newRule.ruleFieldOccurrence = fieldOccurrenceTracker[key];
 			await connection.manager.save(newRule);
 		}
 
