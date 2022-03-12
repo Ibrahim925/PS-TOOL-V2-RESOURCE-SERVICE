@@ -75,7 +75,9 @@ export const delete_project = async (
 	await Project.delete({ projectName });
 
 	// Delete all users in project
-	await User.delete({ userProject: projectName });
+	const users = await User.delete({ userProject: projectName });
+
+	console.log(users);
 
 	// Delete all project rules
 	await Rule.delete({ ruleProject: projectName });
