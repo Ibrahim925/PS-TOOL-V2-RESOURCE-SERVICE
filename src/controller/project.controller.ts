@@ -4,6 +4,7 @@ import { connection } from "../db/connection";
 import { Project } from "../db/entity/Project";
 import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
+import { Token } from "../db/entity/Token";
 
 interface CreateProjectRequestBody {
 	projectName: string;
@@ -72,15 +73,20 @@ export const delete_project = async (
 ) => {
 	const { projectName } = req.params;
 
-	await Project.delete({ projectName });
+	Project.delete({ projectName });
 
 	// Delete all users in project
-	const users = await User.delete({ userProject: projectName });
+	const users = await connection
+		.getRepository(User)
+		.find({ userProject: projectName });
 
-	console.log(users.raw);
+	for (const user of users) {
+		Token.delete({ userId: user.id });
+		User.remove(user);
+	}
 
 	// Delete all project rules
-	await Rule.delete({ ruleProject: projectName });
+	Rule.delete({ ruleProject: projectName });
 
 	res.json(projectName);
 };

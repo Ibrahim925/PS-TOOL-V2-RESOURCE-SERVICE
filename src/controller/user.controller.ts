@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid";
 import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import * as bcrypt from "bcryptjs";
 import * as nodemailer from "nodemailer";
+import { Token } from "../db/entity/Token";
 
 // Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =
@@ -128,6 +129,7 @@ export const delete_project_user = async (
 		const { id } = req.params;
 
 		await User.delete({ id });
+		Token.delete({ userId: id });
 
 		return res.sendStatus(200);
 	} catch (error) {}
