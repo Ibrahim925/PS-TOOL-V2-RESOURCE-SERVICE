@@ -34,9 +34,9 @@ export const create_project = async (
 	}
 
 	// Check if project already exists
-	const [foundProject] = await connection
+	const foundProject = await connection
 		.getRepository(Project)
-		.find({ where: { projectName }, take: 1 });
+		.findOne({ where: { projectName } });
 
 	if (foundProject) {
 		errors.push({
