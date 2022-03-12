@@ -34,11 +34,9 @@ export const create_project = async (
 	}
 
 	// Check if project already exists
-	const foundProject = await connection
+	const [foundProject] = await connection
 		.getRepository(Project)
-		.createQueryBuilder("project")
-		.where("project.projectName = :projectName", { projectName })
-		.getOne();
+		.find({ where: { projectName }, take: 1 });
 
 	if (foundProject) {
 		errors.push({
@@ -59,10 +57,7 @@ export const create_project = async (
 };
 
 export const get_projects = async (req: CustomRequest<{}, {}, {}>, res) => {
-	const projects = await connection
-		.getRepository(Project)
-		.createQueryBuilder()
-		.getMany();
+	const projects = await connection.getRepository(Project).find();
 
 	return res.json(projects);
 };

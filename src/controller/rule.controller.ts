@@ -110,13 +110,14 @@ export const get_objects = async (
 	const { projectName } = req.params;
 
 	// Get all unique objects from rules
-	const rules = await connection
-		.getRepository(Rule)
-		.createQueryBuilder("rule")
-		.where("rule.ruleProject = :projectName", { projectName })
-		.getMany();
+	const rules = await connection.getRepository(Rule).find({
+		where: {
+			ruleProject: projectName,
+		},
+	});
 
 	const objectNames: LogiObject[] = [];
+
 	rules
 		.map((rule) => ({
 			...rule,
@@ -147,11 +148,11 @@ export const get_rules = async (
 ) => {
 	const { projectName } = req.params;
 
-	const rules = await connection
-		.getRepository(Rule)
-		.createQueryBuilder("rule")
-		.where("rule.ruleProject = :projectName", { projectName })
-		.getMany();
+	const rules = await connection.getRepository(Rule).find({
+		where: {
+			ruleProject: projectName,
+		},
+	});
 
 	return res.json(
 		rules.map((rule) => {
@@ -181,10 +182,7 @@ export const get_object_rules = async (
 
 	const rules = await connection
 		.getRepository(Rule)
-		.createQueryBuilder("rule")
-		.where("rule.ruleObject = :objectName", { objectName })
-		.andWhere("rule.ruleProject = :projectName", { projectName })
-		.getMany();
+		.find({ ruleObject: objectName, ruleProject: projectName });
 
 	return res.json(
 		rules.map((rule) => {

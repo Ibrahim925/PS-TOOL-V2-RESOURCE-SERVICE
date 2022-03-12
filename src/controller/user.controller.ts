@@ -25,11 +25,7 @@ export const get_user_data = async (
 	const { id } = req;
 
 	// Look for this user in the database
-	const user = await connection
-		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.id = :id", { id })
-		.getOne();
+	const user = await connection.getRepository(User).findOne({ where: { id } });
 
 	res.json(user);
 };
@@ -64,11 +60,11 @@ export const create_user = async (
 		return res.json(errors);
 	}
 
-	const foundUser = await connection
-		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.userEmail = :userEmail", { userEmail })
-		.getOne();
+	const foundUser = await connection.getRepository(User).findOne({
+		where: {
+			userEmail,
+		},
+	});
 
 	if (foundUser) {
 		errors.push({
@@ -111,11 +107,11 @@ export const get_project_users = async (
 ) => {
 	const { projectName } = req.params;
 
-	const foundUsers = await connection
-		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.userProject = :projectName", { projectName })
-		.getMany();
+	const foundUsers = await connection.getRepository(User).find({
+		where: {
+			userProject: projectName,
+		},
+	});
 
 	return res.json(foundUsers);
 };
