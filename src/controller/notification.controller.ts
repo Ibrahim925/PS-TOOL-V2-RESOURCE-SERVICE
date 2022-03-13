@@ -24,10 +24,10 @@ interface DeleteNotificationBody {
 }
 
 export const delete_notification = async (
-	req: CustomRequest<{}, DeleteNotificationBody, {}>,
+	req: CustomRequest<DeleteNotificationBody, {}, {}>,
 	res: Response
 ) => {
-	const { id } = req.body;
+	const { id } = req.params;
 
 	await Notification.delete({ id });
 

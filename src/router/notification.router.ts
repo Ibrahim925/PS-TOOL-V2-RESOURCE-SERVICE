@@ -8,6 +8,6 @@ const router: Router = Router();
 
 router.get("/:projectName", get_notifications);
 
-router.delete("/", delete_notification);
+router.delete("/:id", delete_notification);
 
 export default router;
