@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { Connection, createConnection } from "typeorm";
 import "dotenv/config";
 
-let connection: Connection;
+export let connection: Connection;
 
 // create connection
 createConnection({
@@ -22,5 +22,3 @@ createConnection({
 }).then((returnedConnection: Connection) => {
 	connection = returnedConnection;
 });
-
-export connection
