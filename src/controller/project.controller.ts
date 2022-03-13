@@ -5,6 +5,7 @@ import { Project } from "../db/entity/Project";
 import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
 import { Token } from "../db/entity/Token";
+import { Notification } from "../db/entity/Notification";
 
 interface CreateProjectRequestBody {
 	projectName: string;
@@ -87,6 +88,9 @@ export const delete_project = async (
 
 	// Delete all project rules
 	Rule.delete({ ruleProject: projectName });
+
+	// Delete all project notifications
+	Notification.delete({ notificationProject: projectName });
 
 	res.json(projectName);
 };
