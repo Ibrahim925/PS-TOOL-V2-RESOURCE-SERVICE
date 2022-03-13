@@ -18,3 +18,18 @@ export const get_notifications = async (
 
 	return res.json(notifications);
 };
+
+interface DeleteNotificationBody {
+	id: number;
+}
+
+export const delete_notification = async (
+	req: CustomRequest<{}, DeleteNotificationBody, {}>,
+	res: Response
+) => {
+	const { id } = req.body;
+
+	await Notification.delete({ id });
+
+	res.sendStatus(200);
+};
