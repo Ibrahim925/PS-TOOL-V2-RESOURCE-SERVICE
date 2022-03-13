@@ -21,8 +21,8 @@ export class ObjectData extends BaseEntity {
 	@Column()
 	objectField: string;
 
-	@Column()
-	objectValue: any;
+	@Column("text")
+	objectValue;
 
 	@Column()
 	objectTemp: boolean;
