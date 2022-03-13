@@ -110,7 +110,7 @@ export const get_objects = async (
 	const { projectName } = req.params;
 
 	// Get all unique objects from rules
-	const rules = await connection.getRepository(Rule).find({
+	const rules = await Rule.find({
 		where: {
 			ruleProject: projectName,
 		},
@@ -148,7 +148,7 @@ export const get_rules = async (
 ) => {
 	const { projectName } = req.params;
 
-	const rules = await connection.getRepository(Rule).find({
+	const rules = await Rule.find({
 		where: {
 			ruleProject: projectName,
 		},
@@ -180,9 +180,10 @@ export const get_object_rules = async (
 ) => {
 	const { objectName, projectName } = req.params;
 
-	const rules = await connection
-		.getRepository(Rule)
-		.find({ ruleObject: objectName, ruleProject: projectName });
+	const rules = await Rule.find({
+		ruleObject: objectName,
+		ruleProject: projectName,
+	});
 
 	return res.json(
 		rules.map((rule) => {

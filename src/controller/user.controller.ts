@@ -26,7 +26,7 @@ export const get_user_data = async (
 	const { id } = req;
 
 	// Look for this user in the database
-	const user = await connection.getRepository(User).findOne({ where: { id } });
+	const user = await User.findOne({ where: { id } });
 
 	res.json(user);
 };
@@ -61,7 +61,7 @@ export const create_user = async (
 		return res.json(errors);
 	}
 
-	const foundUser = await connection.getRepository(User).findOne({
+	const foundUser = await User.findOne({
 		where: {
 			userEmail,
 		},
@@ -107,7 +107,7 @@ export const get_project_users = async (
 ) => {
 	const { projectName } = req.params;
 
-	const foundUsers = await connection.getRepository(User).find({
+	const foundUsers = await User.find({
 		where: {
 			userProject: projectName,
 		},

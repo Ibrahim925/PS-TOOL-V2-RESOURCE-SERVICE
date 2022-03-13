@@ -36,9 +36,7 @@ export const create_project = async (
 	}
 
 	// Check if project already exists
-	const foundProject = await connection
-		.getRepository(Project)
-		.findOne({ where: { projectName } });
+	const foundProject = await Project.findOne({ where: { projectName } });
 
 	if (foundProject) {
 		errors.push({
@@ -59,7 +57,7 @@ export const create_project = async (
 };
 
 export const get_projects = async (req: CustomRequest<{}, {}, {}>, res) => {
-	const projects = await connection.getRepository(Project).find();
+	const projects = await Project.find();
 
 	return res.json(projects);
 };
@@ -77,9 +75,7 @@ export const delete_project = async (
 	Project.delete({ projectName });
 
 	// Delete all users in project
-	const users = await connection
-		.getRepository(User)
-		.find({ userProject: projectName });
+	const users = await User.find({ userProject: projectName });
 
 	for (const user of users) {
 		Token.delete({ userId: user.id });
