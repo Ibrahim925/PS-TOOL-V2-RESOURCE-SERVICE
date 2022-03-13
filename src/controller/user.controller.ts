@@ -11,13 +11,7 @@ import { Token } from "../db/entity/Token";
 
 // Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =
-	nodemailer.createTransport({
-		service: "gmail",
-		auth: {
-			user: process.env.email,
-			pass: process.env.password,
-		},
-	});
+	nodemailer.createTransport();
 
 export const get_user_data = async (
 	req: CustomRequest<{}, {}, {}>,
