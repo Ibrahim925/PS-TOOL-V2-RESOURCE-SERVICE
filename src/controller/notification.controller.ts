@@ -14,6 +14,9 @@ export const get_notifications = async (
 
 	const notifications = await Notification.find({
 		where: { notificationProject: projectName },
+		order: {
+			id: "DESC",
+		},
 	});
 
 	return res.json(notifications);
