@@ -34,7 +34,7 @@ export const get_project_errors = async (
 		errorFree: "Success Count",
 		errorDataType: "Data Type Errors",
 		errorDependency: "Dependency Errors",
-		erorExistence: "Existence Errors",
+		errorExistence: "Existence Errors",
 	});
 
 	res.json(csvReport);
