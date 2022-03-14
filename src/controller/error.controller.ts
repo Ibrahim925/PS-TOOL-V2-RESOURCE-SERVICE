@@ -16,14 +16,24 @@ export const get_project_errors = async (
 	const errors = await Error.getRepository().find({
 		where: { errorProject: projectName },
 		order: { errorRun: "ASC", errorObject: "ASC" },
+		select: [
+			"errorObject",
+			"errorRun",
+			"errorCount",
+			"errorFree",
+			"errorDataType",
+			"errorDependency",
+			"errorExistence",
+		],
 	});
 
 	const csvReport = await JSONtoCSV(errors, [
 		"Object Name",
+		"Run",
 		"Error Count",
 		"Success Count",
-		"Dependency Errors",
 		"Data Type Errors",
+		"Dependency Errors",
 		"Existence Errors",
 	]);
 

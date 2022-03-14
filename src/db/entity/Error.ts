@@ -12,10 +12,10 @@ export class Error extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({ select: false })
+	@Column()
 	errorRun: number;
 
-	@Column({ select: false })
+	@Column()
 	errorProject: string;
 
 	@Column()
@@ -36,9 +36,9 @@ export class Error extends BaseEntity {
 	@Column()
 	errorExistence: number;
 
-	@CreateDateColumn({ select: false })
+	@CreateDateColumn()
 	createdAt: Date;
 
-	@UpdateDateColumn({ select: false })
+	@UpdateDateColumn()
 	updatedAt: Date;
 }
