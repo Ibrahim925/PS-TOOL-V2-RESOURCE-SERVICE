@@ -27,15 +27,15 @@ export const get_project_errors = async (
 		],
 	});
 
-	const csvReport = await JSONtoCSV(errors, [
-		"Object Name",
-		"Run",
-		"Error Count",
-		"Success Count",
-		"Data Type Errors",
-		"Dependency Errors",
-		"Existence Errors",
-	]);
+	const csvReport = await JSONtoCSV(errors, {
+		errorObject: "Object Name",
+		errorRun: "Run",
+		errorCount: "Error Count",
+		errorFree: "Success Count",
+		errorDataType: "Data Type Errors",
+		errorDependency: "Dependency Errors",
+		erorExistence: "Existence Errors",
+	});
 
 	res.json(csvReport);
 };
