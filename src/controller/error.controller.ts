@@ -27,6 +27,8 @@ export const get_project_errors = async (
 		],
 	});
 
+	if (!errors) return res.json("");
+
 	const csvReport = await JSONtoCSV(errors, {
 		errorObject: "Object Name",
 		errorRun: "Run",
