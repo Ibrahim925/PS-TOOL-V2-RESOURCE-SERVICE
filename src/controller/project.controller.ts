@@ -106,6 +106,8 @@ export const delete_project = async (
 
 	const objectKeys = listedObjects.Contents.map(({ Key }) => ({ Key }));
 
+	console.log(objectKeys, "FJLDSJFKLDSJJJJJJJJJJJJJJJjj");
+
 	await s3
 		.deleteObjects(
 			{
