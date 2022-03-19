@@ -6,6 +6,15 @@ import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
 import { Token } from "../db/entity/Token";
 import { Notification } from "../db/entity/Notification";
+import * as AWS from "aws-sdk";
+
+AWS.config.update({
+	region: "us-east-2",
+	credentials: {
+		accessKeyId: process.env.IAM_ACCESS_KEY,
+		secretAccessKey: process.env.IAM_SECRET_KEY,
+	},
+});
 
 interface CreateProjectRequestBody {
 	projectName: string;
@@ -87,6 +96,29 @@ export const delete_project = async (
 
 	// Delete all project notifications
 	Notification.delete({ notificationProject: projectName });
+
+	// Delete all persisted data related to this project
+	const s3 = new AWS.S3();
+
+	const listedObjects = await s3
+		.listObjectsV2({ Bucket: "logisense-csv-data", Prefix: "VALIDATE/" })
+		.promise();
+
+	const objectKeys = listedObjects.Contents.map(({ Key }) => ({ Key }));
+
+	await s3
+		.deleteObjects(
+			{
+				Bucket: "logisense-csv-data",
+				Delete: {
+					Objects: objectKeys,
+				},
+			},
+			(err, data) => {
+				if (err) console.log(err);
+			}
+		)
+		.promise();
 
 	res.json(projectName);
 };
