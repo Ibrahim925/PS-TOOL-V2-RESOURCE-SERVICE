@@ -101,7 +101,7 @@ export const delete_project = async (
 	const s3 = new AWS.S3();
 
 	const listedObjects = await s3
-		.listObjectsV2({ Bucket: "logisense-csv-data", Prefix: "VALIDATE/" })
+		.listObjectsV2({ Bucket: "logisense-csv-data", Prefix: "PARENT/" })
 		.promise();
 
 	const objectKeys = listedObjects.Contents.map(({ Key }) => ({ Key }));
