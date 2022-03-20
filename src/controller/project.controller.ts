@@ -6,7 +6,7 @@ import { User } from "../db/entity/User";
 import { Rule } from "../db/entity/Rule";
 import { Token } from "../db/entity/Token";
 import { Notification } from "../db/entity/Notification";
-import * as AWS from "aws-sdk";
+import AWS from "aws-sdk";
 
 AWS.config.update({
 	region: "us-east-2",
