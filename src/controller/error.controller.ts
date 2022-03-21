@@ -15,7 +15,7 @@ export const get_project_errors = async (
 
 	const errors = await Error.getRepository().find({
 		where: { errorProject: projectName },
-		order: { errorObject: "ASC" },
+		order: { errorObject: "ASC", errorRun: "ASC" },
 		select: [
 			"errorObject",
 			"errorRun",
