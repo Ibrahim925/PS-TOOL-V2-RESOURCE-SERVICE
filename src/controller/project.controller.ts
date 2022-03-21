@@ -108,19 +108,20 @@ export const delete_project = async (
 
 	console.log(objectKeys, "FJLDSJFKLDSJJJJJJJJJJJJJJJjj");
 
-	await s3
-		.deleteObjects(
-			{
-				Bucket: "logisense-csv-data",
-				Delete: {
-					Objects: objectKeys,
+	if (objectKeys.length)
+		await s3
+			.deleteObjects(
+				{
+					Bucket: "logisense-csv-data",
+					Delete: {
+						Objects: objectKeys,
+					},
 				},
-			},
-			(err, data) => {
-				if (err) console.log(err);
-			}
-		)
-		.promise();
+				(err, data) => {
+					if (err) console.log(err);
+				}
+			)
+			.promise();
 
 	res.json(projectName);
 };
