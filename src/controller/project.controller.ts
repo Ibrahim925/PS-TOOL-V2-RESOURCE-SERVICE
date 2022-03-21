@@ -7,6 +7,7 @@ import { Rule } from "../db/entity/Rule";
 import { Token } from "../db/entity/Token";
 import { Notification } from "../db/entity/Notification";
 import AWS from "aws-sdk";
+import { Error } from "../db/entity/Error";
 
 AWS.config.update({
 	region: "us-east-2",
@@ -96,6 +97,9 @@ export const delete_project = async (
 
 	// Delete all project notifications
 	Notification.delete({ notificationProject: projectName });
+
+	// Delet all project errors
+	Error.delete({ errorProject: projectName });
 
 	// Delete all persisted data related to this project
 	const s3 = new AWS.S3();
