@@ -34,7 +34,7 @@
 	},
 	"scripts": {
 		"build": "tsc --build",
-		"start": "node ./build/jobs/worker.js",
+		"start": "node ./build/index.js",
 		"deploy": "npm run build && npm run start"
 	}
 }
