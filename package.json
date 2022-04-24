@@ -28,7 +28,7 @@
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc --build",
 		"start": "node ./build/index.js",
 		"deploy": "npm run build && npm run start"
 	}
